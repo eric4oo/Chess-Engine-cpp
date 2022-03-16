@@ -143,6 +143,12 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Chess Engine cpp.cpp" />
+    <ClCompile Include="FEN_to_Bit.cpp" />
+    <ClCompile Include="get_attacks.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="FEN_to_Bit.h" />
+    <ClInclude Include="get_attacks.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -1,7 +1,10 @@
 #include <iostream>
 #include <string>
-#include <bitset>
 #include <math.h>
+#include <bitset>
+#include "FEN_to_Bit.h"
+#include "get_attacks.h"
+#include <vector>
 
 using namespace std;
 
@@ -10,65 +13,49 @@ using namespace std;
 //   k - black K - white
 //   rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1
 
-
-void convert_FEN(string FEN);
-uint64_t set_bit(int n, uint64_t bit);
-
 int main()
 {
-	uint64_t a = 0b0;
-	convert_FEN("rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1");
-	//           
-	return 0;
-}
+	Boards all_bitboards = convert_FEN("rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1");
+	combine_boards(all_bitboards);
+	get_legal_moves(all_bitboards);
 
-//convert to bitboards
-void convert_FEN(string FEN)
-{
-	uint64_t rBB = 0b0, RBB = 0b0, nBB = 0b0, NBB = 0b0, bBB = 0b0, BBB = 0b0, qBB = 0b0, QBB = 0b0, kBB = 0b0, KBB = 0b0, pBB = 0b0, PBB = 0b0;
 
-	size_t length = FEN.size();
-	int check;
-	int checkmod = 0;
 
-	for (check = 0; check < length; check++)
+
+
+
+	//show occupied board
+	bitset<64> occ = all_bitboards.oB;
+	bitset<64> wh = all_bitboards.wB;
+	bitset<64> bl = all_bitboards.bB;
+
+	cout << endl;
+	cout << "white spaces" << endl;
+	for (int i = 0; i < 64; i++)
 	{
-
-		if (FEN[check] == '/')
-		{
-			checkmod -= 1;
-		}
-
-		if (isdigit(FEN[check]))
-		{
-			char num = FEN[check];
-			int skip = num - '1';
-			checkmod += skip;
-		}
-
-		if (FEN[check] == 'r')
-		{
-			rBB = set_bit(64 - check - checkmod - 8 + 2 * ((check + checkmod) % 8), rBB);
-		}
-		if (FEN[check] == 'R')
-		{
-			RBB = set_bit(64 - check - checkmod - 8 + 2 * ((check + checkmod) % 8), RBB);
-		}
-
-
-
-
-		cout << bitset<64>(rBB) << endl;
-
-
-
+		if (i % 8 == 0)
+			cout << endl;
+		cout << wh.test(63 - i);
 	}
-	return;
-}
+	cout << endl << endl;
+	cout << "black spaces" << endl;
+	for (int i = 0; i < 64; i++)
+	{
+		if (i % 8 == 0)
+			cout << endl;
+		cout << bl.test(63 - i);
+	}
+	cout << endl << endl;
+	cout << "occupied spaces" << endl;
+	for (int i = 0; i < 64; i++)
+	{
+		if (i % 8 == 0)
+			cout << endl;
+		cout << occ.test(63 - i);
+	}
+		cout << endl;
 
-uint64_t set_bit(int n, uint64_t bit)
-{
-	return bit | (static_cast<unsigned long long>(1) << n);
+	return 0;
 }
 
 int writeboard(int board)

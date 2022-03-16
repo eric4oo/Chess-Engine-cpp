@@ -18,5 +18,19 @@
     <ClCompile Include="Chess Engine cpp.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="FEN_to_Bit.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="get_attacks.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="FEN_to_Bit.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="get_attacks.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
