@@ -35,7 +35,7 @@ int main()
 	{
 		if (i % 8 == 0)
 			cout << endl;
-		cout << wh.test(63 - i);
+		cout << wh.test(63 - i - 7 + 2 * (i%8));
 	}
 	cout << endl << endl;
 	cout << "black spaces" << endl;
@@ -43,7 +43,7 @@ int main()
 	{
 		if (i % 8 == 0)
 			cout << endl;
-		cout << bl.test(63 - i);
+		cout << bl.test(63 - i - 7 + 2 * (i % 8));
 	}
 	cout << endl << endl;
 	cout << "occupied spaces" << endl;
@@ -51,7 +51,7 @@ int main()
 	{
 		if (i % 8 == 0)
 			cout << endl;
-		cout << occ.test(63 - i);
+		cout << occ.test(63 - i - 7 + 2 * (i % 8));
 	}
 		cout << endl;
 

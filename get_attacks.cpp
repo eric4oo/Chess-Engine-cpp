@@ -52,6 +52,12 @@ void get_legal_moves(Boards& bitboard)
 
 			pRank = i / 8;
 			pFile = i % 8;
+			if (piece == PieceType::Rook)
+			{
+				uint64_t rookattacks = rookSlider(bitboard, pRank, pFile);
+				//cout << bitset<64>(rookattacks) << endl;
+			}
+
 
 		}
 
@@ -63,6 +69,38 @@ void get_legal_moves(Boards& bitboard)
 
 
 	//bitboard.legal_moves.push_back({0,1});
+}
+
+//these functions return movable spaces including attacks per piece
+uint64_t rookSlider(Boards& bitboard, int rank, int file)
+{
+	uint64_t empty_board = 0b0;
+	//look at horz
+	uint64_t horzboard = bitboard.oB >> rank * 8;
+	uint64_t horzOccu = horzboard & 0xFF;
+	uint64_t horzSlider = 0b0 | (1 << (7 - file));
+
+	cout << bitset<8>(horzOccu) << endl;
+	cout << bitset<8>(horzSlider) << endl;
+	cout << bitset<8>(horzOccu ^ (horzOccu - 2 * horzSlider)) << endl;
+	cout << bitset<8>(horzSlider).flip() << endl;
+	//need to make reverse func
+
+
+	empty_board = empty_board | ((horzOccu - 2 * horzSlider) ^ ~(~horzOccu - ~(2 * horzSlider)));
+
+
+	return empty_board;
+}
+
+uint64_t bishopSlider(Boards& bitboard, int rank, int file)
+{
+	return 0;
+}
+
+uint64_t pawnAttack(Boards& bitboard)
+{
+	return 0;
 }
 
 bool move_is_pinned(Boards& bitboard)
